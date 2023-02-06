@@ -12,6 +12,16 @@ For this project we decided to use the [T3](https://create.t3.gg/) stack to util
 **Client:** NextJS
 
 **Server:** tRPC, NodeJS
+
+## Installation
+
+Install ReWork with git
+
+```bash
+  git clone https://github.com/ImRohak/ReWork.git
+  cd ReWork
+```
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
