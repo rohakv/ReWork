@@ -5,6 +5,7 @@ import {
   type DefaultSession,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { env } from "../env/server.mjs";
 
 /**
@@ -50,6 +51,30 @@ export const authOptions: NextAuthOptions = {
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
+    CredentialsProvider({
+      name: "Credentials",
+
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "Username..." },
+        password: { label: "Password", type: "password" }
+      },
+
+      authorize(credentials) {
+        // Add logic here to look up the user from the credentials supplied
+        const user = { id: "1", name: "Rohak", email: "rohak@rework.com" }
+  
+        if (credentials?.username === "Rohak", credentials?.password === "Rohak123") {
+          // Any object returned will be saved in `user` property of the JWT
+          return user
+        } else {
+          // If you return null then an error will be displayed advising the user to check their details.
+          return null
+  
+          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+        }
+      },
+    })
+
     /**
      * ...add more providers here
      *
