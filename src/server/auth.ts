@@ -38,19 +38,25 @@ declare module "next-auth" {
  **/
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-        // session.user.role = user.role; <-- put other properties on the session here
+    jwt: ({ token, user }) => {
+      if (user) {
+        token.id = user.id;
       }
-      return session;
+
+      return token;
     },
+    session: ({ session, token }) => {
+      if (token) {
+        session.id = token.id;
+      }
+
+      return session;
+    }
+  },
+  jwt: {
+    secret: env.NEXTAUTH_SECRET
   },
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
-    }),
     CredentialsProvider({
       name: "Credentials",
 
@@ -69,7 +75,6 @@ export const authOptions: NextAuthOptions = {
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null
-  
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       },
