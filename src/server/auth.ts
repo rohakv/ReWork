@@ -4,7 +4,6 @@ import {
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { env } from "../env/server.mjs";
 
@@ -17,6 +16,7 @@ import { env } from "../env/server.mjs";
  **/
 declare module "next-auth" {
   interface Session extends DefaultSession {
+    id: any;
     user: {
       id: string;
       // ...other properties
@@ -48,6 +48,7 @@ export const authOptions: NextAuthOptions = {
     session: ({ session, token }) => {
       if (token) {
         session.id = token.id;
+        session.user.image = null; // there was some stupid error with the image not existing
       }
 
       return session;
