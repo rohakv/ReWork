@@ -1,14 +1,7 @@
 import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
-import { getServerSession } from "next-auth";
 import { getReworkAuthSession } from "../lib/getServerSession";
-import { authOptions } from "../server/auth";
 
-interface PageProps {
-  session: any, 
-  isAuthed: any,
-}
-
-const Login: NextPage<PageProps> = ({ session, isAuthed }) => {
+const Login: NextPage = () => {
 
     return (
         <>

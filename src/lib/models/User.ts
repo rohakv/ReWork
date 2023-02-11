@@ -13,7 +13,13 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+  },
+  todo: {
+    type: Array,
+  },
+  pr: {
+    type: Array
   }
 })
 
-module.exports = mongoose.models.UserSchema || mongoose.model("User", UserSchema); 
+export const User = mongoose.models.Customer || mongoose.model("User", UserSchema);
