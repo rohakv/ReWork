@@ -1,26 +1,18 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
-import type { GetServerSidePropsContext } from "next";
 import {
-  getServerSession,
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { env } from "../env/server.mjs";
 
-const prisma = new PrismaClient();
-
 /**
  * Module augmentation for `next-auth` types.
- * Allows us to add custom properties to the `session` object and keep type
- * safety.
- *
+ * Custom fields to models
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  **/
 declare module "next-auth" {
   interface Session extends DefaultSession {
-    id: any;
+    id: any | unknown; // any until i find out what to give it as a type
     user: {
       id: string;
       // ...other properties
@@ -54,7 +46,6 @@ export const authOptions: NextAuthOptions = {
   jwt: {
     secret: env.NEXTAUTH_SECRET
   },
-  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -81,11 +72,4 @@ export const authOptions: NextAuthOptions = {
 
     // add more providers here...
   ],
-};
-
-export const getServerAuthSession = (ctx: {
-  req: GetServerSidePropsContext["req"];
-  res: GetServerSidePropsContext["res"];
-}) => {
-  return getServerSession(ctx.req, ctx.res, authOptions);
 };
