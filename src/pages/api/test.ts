@@ -4,7 +4,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { User } from "../../lib/models/User";
 import { connectMongo } from '../../lib/dbConnect';
-import { HydratedDocument } from 'mongoose';
+import type { HydratedDocument } from 'mongoose';
 
 type Data = {
   data: object
