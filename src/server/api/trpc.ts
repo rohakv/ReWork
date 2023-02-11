@@ -1,24 +1,7 @@
-/**
- * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
- * 1. You want to modify request context (see Part 1).
- * 2. You want to create a new middleware or type of procedure (see Part 3).
- *
- * tl;dr - This is where all the tRPC server stuff is created and plugged in.
- * The pieces you will need to use are documented accordingly near the end.
- */
-
-/**
- * 1. CONTEXT
- *
- * This section defines the "contexts" that are available in the backend API.
- *
- * These allow you to access things when processing a request, like the
- * database, the session, etc.
- */
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { type Session } from "next-auth";
 
-import { getServerAuthSession } from "../auth";
+import { getReworkAuthSession } from "../../lib/getServerSession";
 
 type CreateContextOptions = {
   session: Session | null;
@@ -50,7 +33,7 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   const { req, res } = opts;
 
   // Get the session from the server using the getServerSession wrapper function
-  const session = await getServerAuthSession({ req, res });
+  const session = await getReworkAuthSession({ req, res });
 
   return createInnerTRPCContext({
     session,
