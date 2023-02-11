@@ -5,7 +5,7 @@ const handleClick = async (e: any) => {
     const data = response.json();
 
     console.log(data);
- }
+}
 
 const Test: NextPage = () => {
 
