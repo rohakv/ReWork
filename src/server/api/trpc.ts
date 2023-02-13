@@ -1,7 +1,7 @@
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { type Session } from "next-auth";
 
-import { getReworkAuthSession } from "../../lib/getServerSession";
+import { getReworkAuthSession } from "../../utils/getServerSession";
 
 type CreateContextOptions = {
   session: Session | null;

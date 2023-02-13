@@ -1,5 +1,5 @@
 import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
-import { getReworkAuthSession } from "../lib/getServerSession";
+import { getReworkAuthSession } from "../utils/getServerSession";
 
 const Login: NextPage = () => {
 

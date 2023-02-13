@@ -14,8 +14,13 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "typeRoots": [
+      "./src/utils/types"
+    ],
+    "noImplicitAny": false,
+    "noPropertyAccessFromIndexSignature": false,
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "src/utils/dbClientPromise.ts"],
+  "exclude": ["node_modules", "./src/pages/api/v1/auth/register.ts"]
 }
