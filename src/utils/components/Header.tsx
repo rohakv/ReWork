@@ -28,6 +28,7 @@ import {
     IconCoin,
     IconChevronDown,
   } from '@tabler/icons';
+import { useRouter } from 'next/router';
   
   const useStyles = createStyles((theme) => ({
     link: {
@@ -93,6 +94,16 @@ import {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { classes, theme } = useStyles();
+
+    const router = useRouter()
+
+    const register = () => {
+      router.push("/register");
+    };
+
+    const login = () => {
+      router.push("/login");
+    }
   
     return (
       <Box pb={120}>
@@ -101,7 +112,7 @@ import {
             <MantineLogo size={30} />
   
             <Group sx={{ height: '100%' }} spacing={0} className={classes.hiddenMobile}>
-              <a href="#" className={classes.link}>
+              <a href="/" className={classes.link}>
                 Home
               </a>
               <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
@@ -143,8 +154,8 @@ import {
             </Group>
   
             <Group className={classes.hiddenMobile}>
-              <Button variant="default">Log in</Button>
-              <Button>Sign up</Button>
+              <Button variant="default" onClick={login}>Log in</Button>
+              <Button onClick={register}>Register</Button>
             </Group>
   
             <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop} />
@@ -184,8 +195,8 @@ import {
             <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
   
             <Group position="center" grow pb="xl" px="md">
-              <Button variant="default">Log in</Button>
-              <Button>Sign up</Button>
+              <Button onClick={login} variant="default">Log in</Button>
+              <Button onClick={register}>Register</Button>
             </Group>
           </ScrollArea>
         </Drawer>
