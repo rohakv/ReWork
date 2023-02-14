@@ -15,6 +15,7 @@
     "@mantine/core": "^5.10.3",
     "@mantine/dates": "^5.10.3",
     "@mantine/dropzone": "^5.10.3",
+    "@mantine/ds": "^5.10.3",
     "@mantine/form": "^5.10.3",
     "@mantine/hooks": "^5.10.3",
     "@mantine/modals": "^5.10.3",

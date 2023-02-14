@@ -1,10 +1,12 @@
 import { NextPage } from "next";
-import Tabs from "../utils/components/RegisterTabs";
+import { HeaderMegaMenu } from "../utils/components/Header";
+import { AuthenticationForm } from "../utils/components/RegisterForm";
 
 const Register: NextPage = () => {
     return (
         <>
-            <Tabs />
+            <HeaderMegaMenu />
+            <AuthenticationForm />
         </>
     )
 }
