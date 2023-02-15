@@ -8,6 +8,7 @@ import { api } from "../utils/api";
 import "../styles/globals.css";
 
 import { MantineProvider } from "@mantine/core";
+import { HeaderMegaMenu } from "../utils/components/Header";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -19,11 +20,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
           <title>ReWork</title>
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         </Head>
-        <MantineProvider>
-          <SessionProvider session={session}>
-            <Component {...pageProps} />
-          </SessionProvider>
-        </MantineProvider>
+        <HeaderMegaMenu />
+          <MantineProvider>
+            <SessionProvider session={session}>
+              <Component {...pageProps} />
+            </SessionProvider>
+          </MantineProvider>
       </>
   );
 };

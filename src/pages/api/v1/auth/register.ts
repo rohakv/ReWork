@@ -48,6 +48,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     pr: pr
   });
 
+  const check = await User.findOne({"email": email})
+  if (check) res.status(401).json({ msg: "USER_EXISTS", user });
+
   User.create(user);
 
   res.status(201).json({ msg: "CREATED_USER", user: user });

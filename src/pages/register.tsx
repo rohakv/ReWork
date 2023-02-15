@@ -5,7 +5,6 @@ import { AuthenticationForm } from "../utils/components/RegisterForm";
 const Register: NextPage = () => {
     return (
         <>
-            <HeaderMegaMenu />
             <AuthenticationForm />
         </>
     )
