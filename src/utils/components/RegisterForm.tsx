@@ -12,20 +12,31 @@ import {
   } from '@mantine/core';
 
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from 'next/router';
   
-  export function AuthenticationForm() {
+export function AuthenticationForm() {
 
-    const [username, setUsername] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
+    const router = useRouter();
+
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const registerUser = async (e: any) => {
+
       e.preventDefault();
-      if (!username) throw new Error("No username");
-      if (!password) throw new Error("No password");
-      if (!email) throw new Error("No email");
+
+      const toastId = toast.loading("Please wait...");
+
+      if (!username) toast.update(toastId, { render: "Please enter an username!", type: "warning", isLoading: false, closeButton: true });
+      if (!password) toast.update(toastId, { render: "Please enter a password!", type: "warning", isLoading: false, closeButton: true });
+      if (!email) toast.update(toastId, { render: "Please enter an email!", type: "warning", isLoading: false, closeButton: true });
+
+      
 
       if (username && password && email) {
         const payload = {
@@ -34,12 +45,23 @@ import React, { useState, useEffect } from "react";
           email
         }
 
-        const req = await axios.post("/api/v1/auth/register", payload);
-        console.log(req.data);
+        toast.update(toastId, { render: "Creating your account", isLoading: true });
+
+        const req: any = await axios.post("/api/v1/auth/register", payload)
+        .catch((err) => {
+          toast.update(toastId, { render: "Something doesn't feel right", type: "error", isLoading: false });
+        });
+
+        toast.update(toastId, { render: "Created your account", isLoading: false, type: "success", autoClose: 1000 });
+
+        await setTimeout('', 3000);
+
+        router.push("/login");
       }
     }
 
     return (
+      <>
       <Container size={420} my={40}>
         <Title
           align="center"
@@ -63,5 +85,7 @@ import React, { useState, useEffect } from "react";
           </Button>
         </Paper>
       </Container>
+      <ToastContainer limit={10}/>
+      </>
     );
   }
